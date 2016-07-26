@@ -1,0 +1,13 @@
+{
+  "name": "wihere",
+  "version": "0.0.1",
+  "description": "Wireless Headphone Refresher",
+  "main": "index.js",
+  "scripts": {
+    "build": "elm make src/Main.elm --output dist/elm.js || true",
+    "watch": "chokidar '**/*.elm' -c 'npm run build'",
+    "start": "electron dist/main.js"
+  },
+  "author": "Nikita Tchayka",
+  "license": "MIT"
+}
