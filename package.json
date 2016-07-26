@@ -9,5 +9,8 @@
     "start": "electron dist/main.js"
   },
   "author": "Nikita Tchayka",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jquery": "^3.1.0"
+  }
 }
