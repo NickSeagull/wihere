@@ -1,7 +1,7 @@
 module Model exposing (..)
 
 type alias Model =
-    { refreshMilliseconds : Int
+    { refreshSeconds : Int
     , playing : Bool
-    , currentMilliseconds : Int
+    , currentSeconds : Int
     }

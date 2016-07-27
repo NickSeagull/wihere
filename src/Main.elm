@@ -18,7 +18,7 @@ main = App.program
 subscriptions model =
     Time.every second Tick
     
-init = ({refreshMilliseconds = 0, playing = False, currentMilliseconds = 0}, Cmd.none)
+init = ({refreshSeconds = 0, playing = False, currentSeconds = 0}, Cmd.none)
 
 initialMessage : Msg -> Cmd Msg
 initialMessage msg = Task.perform identity identity (Task.succeed msg)

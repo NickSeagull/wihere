@@ -4,35 +4,75 @@ import Update exposing (Msg(..))
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import String exposing (toInt)
 
 playingButton : Model -> Html Msg
 playingButton model =
     let
         status = if model.playing then "active" else ""
-        statusIcon = if model.playing then "stop" else "play"
+        statusIcon = if model.playing then "pause" else "play"
     in
     button
     [ class <| "ui " ++ status ++ " icon button"
     , onClick TogglePlay
     ]
-    [ i [ class <| statusIcon ++ " icon" ] [] ]
+    [ i [ class <| statusIcon ++ " icon" ] []
+    ]
+
+progressBar model =
+    let
+        playingColor = if model.playing then "success" else ""
+    in
+    div
+      [ class "centered row" ]
+      [ div
+        [ class "sixteen wide column" ]
+        [ div
+          [ class <| "ui indicating progress " ++ playingColor
+          , attribute "data-percent" "74"
+          ]
+          [ div
+            [ class "bar" ]
+            []
+          , div
+            [ class "label" ]
+            []
+          ]
+        ]
+      ]
 
 view : Model -> Html Msg
 view model =
     div
-    [ class "ui middle aligned center aligned grid"
-    , id "main-container"
+    [ class "ui grid container"
     ]
     [ div
-      [ class "ui row" ]
+      [ class "row" ]
+      []
+    , div
+      [ class "center aligned row" ]
       [ div
-        [ class "ui column" ]
+        [ class "sixteen wide column" ]
         [ div
-          [ class "ui left icon input"]
-          [ input [ type' "number", placeholder "Refresh seconds"] []
-          , i [ class "alarm icon" ] []
+          [ class "ui fluid massive transparent right action icon input"]
+          [ input
+            [ type' "number"
+            , id "number"
+            , placeholder "Seconds"
+            , onInput saveRefreshRate
+            , Html.Attributes.min "1"
+            ] []
+          , playingButton model
           ]
-        , div [ class "ui column"] [playingButton model]
         ]
       ]
+    , progressBar model
     ]
+
+saveRefreshRate : String -> Msg
+saveRefreshRate s =
+    case toInt s of
+        Ok number ->
+            UpdateRefreshRate number
+        Err _ ->
+            UpdateRefreshRate 1
