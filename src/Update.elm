@@ -1,4 +1,4 @@
-module Update exposing (..)
+port module Update exposing (..)
 import Time exposing (Time)
 
 type Msg
@@ -9,7 +9,7 @@ type Msg
 update msg model =
     case msg of
         TogglePlay ->
-            ( togglePlay model, Cmd.none )
+            ( togglePlay model, play model )
         UpdateRefreshRate seconds ->
             ( updateRefreshRate seconds model, Cmd.none )
         _ ->
@@ -20,3 +20,7 @@ togglePlay model =
 
 updateRefreshRate seconds model =
     { model | refreshSeconds = seconds }
+
+play model = if model.playing then playSound () else Cmd.none
+        
+port playSound : () -> Cmd msg
