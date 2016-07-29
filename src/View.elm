@@ -30,6 +30,7 @@ progressBar model =
         [ div
           [ class <| "ui indicating progress " ++ playingColor
           , attribute "data-percent" "74"
+          , id "progress-bar"
           ]
           [ div
             [ class "bar" ]
@@ -61,6 +62,7 @@ view model =
             , placeholder "Seconds"
             , onInput saveRefreshRate
             , Html.Attributes.min "1"
+            , disabled model.playing
             ] []
           , playingButton model
           ]

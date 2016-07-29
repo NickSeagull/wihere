@@ -16,7 +16,7 @@ main = App.program
 
 
 subscriptions model =
-    Sub.none
+    Time.every second Tick
     
 init = ({refreshSeconds = 0, playing = False, currentSeconds = 0}, Cmd.none)
 
